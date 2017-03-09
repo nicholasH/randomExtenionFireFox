@@ -24,6 +24,14 @@ document.addEventListener("click", function(e) {
 
 function traverseBookmarks(bookmarkTreeNodes) {
 	
-	alert("did it");
+	for(var i=0;i<bookmarkTreeNodes.length;i++) {
+		
+		console.log(bookmarkTreeNodes[i].title);
+		
+		if(bookmarkTreeNodes[i].children) {
+			traverseBookmarks(bookmarkTreeNodes[i].children);
+		} 
+			
+	}	
 
 }
