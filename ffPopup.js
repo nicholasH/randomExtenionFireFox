@@ -26,7 +26,12 @@ function traverseBookmarks(bookmarkTreeNodes) {
 	
 	for(var i=0;i<bookmarkTreeNodes.length;i++) {
 		
-		console.log(bookmarkTreeNodes[i].title);
+		
+			if(bookmarkTreeNodes[i].title == "testFolder"){
+				console.log("found it "+i);
+				getRandomLink(bookmarkTreeNodes[i].children);
+				return;
+			}
 		
 		
 		if(bookmarkTreeNodes[i].children) {
@@ -36,4 +41,12 @@ function traverseBookmarks(bookmarkTreeNodes) {
 			
 	}	
 
+}
+
+
+function getRandomLink(bookmarkTreeNodes){
+	ran =  Math.floor(Math.random() * (bookmarkTreeNodes.length));
+	ranUrl = bookmarkTreeNodes[ran].url;
+	browser.tabs.create({ url: ranUrl });
+	
 }
