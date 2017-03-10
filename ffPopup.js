@@ -21,15 +21,17 @@ document.addEventListener("click", function(e) {
 
 
 });
-
+var folderArray = [];
 function traverseBookmarks(bookmarkTreeNodes) {
 	
 	for(var i=0;i<bookmarkTreeNodes.length;i++) {
 		
 		console.log(bookmarkTreeNodes[i].title);
 		
+		
 		if(bookmarkTreeNodes[i].children) {
 			traverseBookmarks(bookmarkTreeNodes[i].children);
+			folderArray.push(bookmarkTreeNodes[i]);
 		} 
 			
 	}	
