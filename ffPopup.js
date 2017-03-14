@@ -21,9 +21,32 @@ document.addEventListener("click", function(e) {
 
 
 });
-
+var folderArray = [];
 function traverseBookmarks(bookmarkTreeNodes) {
 	
-	alert("did it");
+	for(var i=0;i<bookmarkTreeNodes.length;i++) {
+		
+		
+			if(bookmarkTreeNodes[i].title == "testFolder"){
+				console.log("found it "+i);
+				getRandomLink(bookmarkTreeNodes[i].children);
+				return;
+			}
+		
+		
+		if(bookmarkTreeNodes[i].children) {
+			traverseBookmarks(bookmarkTreeNodes[i].children);
+			folderArray.push(bookmarkTreeNodes[i]);
+		} 
+			
+	}	
 
+}
+
+
+function getRandomLink(bookmarkTreeNodes){
+	ran =  Math.floor(Math.random() * (bookmarkTreeNodes.length));
+	ranUrl = bookmarkTreeNodes[ran].url;
+	browser.tabs.create({ url: ranUrl });
+	
 }
