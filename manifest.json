@@ -15,7 +15,8 @@
 
   "permissions": [
     "activeTab",
-	"bookmarks"
+	"bookmarks",
+	"storage"
   ],
 
   "browser_action": {
