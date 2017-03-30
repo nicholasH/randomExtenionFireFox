@@ -1,3 +1,64 @@
+
+function saveOptions(e) {
+  browser.storage.local.set({
+    colour: document.getElementById("selectFolderName").value
+  });
+  e.preventDefault();
+  updateStatus();
+}
+
+function updateStatus(){
+	
+	var status = document.getElementById('status');
+    status.textContent = 'Options saved.';
+    setTimeout(function() {
+      status.textContent = '';
+    }, 750);
+	
+	
+}
+
+function restoreOptions() {
+  var gettingItem = browser.storage.local.get('colour');
+  gettingItem.then((res) => {
+    document.querySelector("#colour").value = res.colour || 'Firefox red';
+  });
+  getFolders();
+  
+  
+}
+//Todo Get so All folders are Found
+function getFolders(){
+	browser.bookmarks.getTree(function(bookmarkTreeNodes) {
+		var select = document.getElementById("selectFolderName");
+		var op = bookmarkTreeNodes[0].children;
+		var op2 = op[1].children;
+		
+				
+		for(var i = 0; i < op2.length; i++) {
+			var opt = op2[i];
+			console.log(opt);
+			
+			var el = document.createElement("option");
+			el.textContent = opt.title;
+			el.value = opt.title;
+			select.appendChild(el);
+
+		}
+		
+	});	
+	
+	
+}
+
+document.addEventListener('DOMContentLoaded', restoreOptions);
+document.querySelector("form").addEventListener("submit", saveOptions);
+
+
+/*
+
+
+
 // Saves options to chrome.storage
 function save_options() {
   var folderName = document.getElementById('folderName').value;
@@ -52,3 +113,6 @@ function restore_options() {
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click',
     save_options);
+	
+	
+*/
