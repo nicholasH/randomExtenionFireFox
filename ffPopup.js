@@ -23,23 +23,30 @@ document.addEventListener("click", function(e) {
 });
 var folderArray = [];
 function traverseBookmarks(bookmarkTreeNodes) {
-	
-	for(var i=0;i<bookmarkTreeNodes.length;i++) {
+	var name
+	var gettingItem = browser.storage.local.get('FolderName');
+		gettingItem.then((res) => {
+			name = res.FolderName;
+			
+			for(var i=0;i<bookmarkTreeNodes.length;i++) {
 		
 		
-			if(bookmarkTreeNodes[i].title == "testFolder"){
+			if(bookmarkTreeNodes[i].title == name){
 				console.log("found it "+i);
 				getRandomLink(bookmarkTreeNodes[i].children);
 				return;
 			}
 		
 		
-		if(bookmarkTreeNodes[i].children) {
-			traverseBookmarks(bookmarkTreeNodes[i].children);
-			folderArray.push(bookmarkTreeNodes[i]);
-		} 
+			if(bookmarkTreeNodes[i].children) {
+				traverseBookmarks(bookmarkTreeNodes[i].children);
+				folderArray.push(bookmarkTreeNodes[i]);
+			} 
 			
-	}	
+			}	
+	});
+	
+
 
 }
 

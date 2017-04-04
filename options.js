@@ -1,8 +1,11 @@
 
 function saveOptions(e) {
+	
+	var folder = document.getElementById("selectFolderName").value
   browser.storage.local.set({
-    colour: document.getElementById("selectFolderName").value
+    FolderName: folder
   });
+   document.getElementById('currentFolder').value = folder
   e.preventDefault();
   updateStatus();
 }
@@ -19,9 +22,9 @@ function updateStatus(){
 }
 
 function restoreOptions() {
-  var gettingItem = browser.storage.local.get('colour');
+  var gettingItem = browser.storage.local.get('FolderName');
   gettingItem.then((res) => {
-    document.querySelector("#colour").value = res.colour || 'Firefox red';
+    document.getElementById('currentFolder').value = res.FolderName;
   });
   getFolders();
   
@@ -52,7 +55,7 @@ function getFolders(){
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
-document.querySelector("form").addEventListener("submit", saveOptions);
+document.getElementById("save").addEventListener("click", saveOptions);
 
 
 /*
